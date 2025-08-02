@@ -6,7 +6,7 @@ import shlex
 import sys
 import tempfile
 import urllib.parse
-from typing import TYPE_CHECKING, Any, TypeVar, Union
+from typing import TYPE_CHECKING, Any, Union
 
 from mkdocs.config import Config
 from mkdocs.config import config_options as opt
