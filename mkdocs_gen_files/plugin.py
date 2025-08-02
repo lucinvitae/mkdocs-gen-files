@@ -59,21 +59,21 @@ class GenFilesPlugin(BasePlugin[PluginConfig]):
                 """Parse the script configuration.  The sub_config may just be a
                 string, in which case it's treated as a path ane executed
                 directly.  Otherwise, the sub_config is a dictionary, with keys
-                path and optionally argv, where path is the path to the executable,
+                path and optionally args, where path is the path to the executable,
                 and argv is the arguments to the executable.  The arguments to the
                 scripts are _always_ overridden, i.e. sys.argv is always modified.
                 """
                 # get the path to the executable and optionally arguments
-                argv: list[str] = []
+                args: list[str] = []
                 if isinstance(sub_config, str):  # treat it as a path
                     file_name = sub_config
                 else:  # treat it as a `_ScriptValue`
                     file_name = sub_config["path"]
-                    if "argv" in sub_config:  # optionally add argv
-                        argv = shlex.split(sub_config["argv"])
+                    if "args" in sub_config:  # optionally add args
+                        args = shlex.split(sub_config["args"])
                 # override sys.argv, but save it for later to restore
                 old_sys_argv = sys.argv
-                sys.argv = [file_name, *argv]
+                sys.argv = [file_name, *args]
                 # run the script
                 try:
                     runpy.run_path(file_name)
